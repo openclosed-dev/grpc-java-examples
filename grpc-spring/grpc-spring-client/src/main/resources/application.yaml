@@ -3,4 +3,4 @@ spring:
     client:
       channels:
         local:
-          address: 0.0.0.0:9090
+          address: 127.0.0.1:9090
