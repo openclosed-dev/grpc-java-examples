@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.5'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+    implementation platform("org.springframework.grpc:spring-grpc-dependencies:0.8.0")
+
+    implementation project(':grpc-spring-base')
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation "org.springframework.grpc:spring-grpc-spring-boot-starter"
+}

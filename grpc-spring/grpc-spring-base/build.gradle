@@ -1,0 +1,66 @@
+plugins {
+    id 'java-library'
+    id 'com.google.protobuf' version '0.9.5'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+def protobufVersion = '3.25.5'
+def grpcVersion = '1.72.0'
+
+dependencies {
+    api "io.grpc:grpc-protobuf:${grpcVersion}"
+    api "io.grpc:grpc-stub:${grpcVersion}"
+    compileOnly "org.apache.tomcat:annotations-api:6.0.53"
+    runtimeOnly "io.grpc:grpc-netty:${grpcVersion}"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = [
+                 'src/main/grpc',
+                 'src/main/java'
+            ]
+        }
+    }
+}
+
+protobuf {
+    // protoc is the protocol buffer compiler which compiles .proto files
+    protoc {
+        artifact = "com.google.protobuf:protoc:${protobufVersion}"
+    }
+    generatedFilesBaseDir = "$projectDir/src"
+    plugins {
+        // protoc plugin for gRPC Java
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+tasks.register('clearGenerated') {
+    description = 'Clear generated sources from proto files.'
+    doFirst {
+        delete "$projectDir/build/generated/sources/proto"    
+    }
+}
+
+tasks.named('generateProto') {
+    finalizedBy 'clearGenerated'
+}
