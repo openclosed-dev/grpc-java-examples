@@ -1,0 +1,14 @@
+services:
+  server:
+    build: ./grpc-spring-server
+    hostname: ${GRPC_SERVER_HOST}
+    environment:
+      - GRPC_SERVER_HOST
+      - GRPC_SERVER_PORT
+  client:
+    build: ./grpc-spring-client
+    environment:
+      - GRPC_SERVER_HOST
+      - GRPC_SERVER_PORT
+    profiles:
+      - disabled # Does not run by default
