@@ -20,5 +20,5 @@ dependencies {
 
     implementation project(':grpc-spring-base')
     implementation 'org.springframework.boot:spring-boot-starter'
-    implementation "org.springframework.grpc:spring-grpc-spring-boot-starter"
+    implementation "org.springframework.grpc:spring-grpc-client-spring-boot-starter"
 }
