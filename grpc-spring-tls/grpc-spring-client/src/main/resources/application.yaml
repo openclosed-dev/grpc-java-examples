@@ -1,0 +1,19 @@
+spring:
+  grpc:
+    client:
+      channels:
+        weather:
+          address: ${GRPC_SERVER_HOST}:${GRPC_SERVER_PORT}
+          negotiation-type: tls
+          ssl:
+            bundle: ca
+          secure: true
+  ssl:
+    bundle:
+      pem:
+        ca:
+          truststore:
+            certificate: file:/certs/ca.crt
+logging:
+  level:
+    root: INFO

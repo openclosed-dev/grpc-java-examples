@@ -1,0 +1,19 @@
+spring:
+  grpc:
+    server:
+      host: ${GRPC_SERVER_HOST:127.0.0.1}
+      port: ${GRPC_SERVER_PORT:9090}
+      ssl:
+        enabled: true
+        bundle: server
+        client-auth: none
+  ssl:
+    bundle:
+      pem:
+        server:
+          keystore:
+            certificate: file:/certs/server.crt
+            private-key: file:/certs/server.key
+logging:
+  level:
+    root: INFO

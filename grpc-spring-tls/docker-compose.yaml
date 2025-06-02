@@ -1,0 +1,20 @@
+services:
+  server:
+    build: ./grpc-spring-server
+    image: grpc-spring-server:tls
+    hostname: ${GRPC_SERVER_HOST}
+    environment:
+      - GRPC_SERVER_HOST
+      - GRPC_SERVER_PORT
+    volumes:
+      - './certs:/certs'
+  client:
+    build: ./grpc-spring-client
+    image: grpc-spring-client:tls
+    environment:
+      - GRPC_SERVER_HOST
+      - GRPC_SERVER_PORT
+    volumes:
+      - './certs:/certs'
+    profiles:
+      - disabled # Does not run by default
